@@ -171,7 +171,51 @@ function () {
   return function (_x7, _x8) {
     return _ref4.apply(this, arguments);
   };
-}()); // put
+}());
+router.put('/:id',
+/*#__PURE__*/
+function () {
+  var _ref5 = _asyncToGenerator(
+  /*#__PURE__*/
+  regeneratorRuntime.mark(function _callee5(req, res) {
+    var id, updateAction, db;
+    return regeneratorRuntime.wrap(function _callee5$(_context5) {
+      while (1) {
+        switch (_context5.prev = _context5.next) {
+          case 0:
+            id = req.params.id;
+            updateAction = {
+              nickname: req.body.nickname,
+              score: req.body.score
+            };
+            _context5.next = 4;
+            return (0, _database.connect)();
 
+          case 4:
+            db = _context5.sent;
+            _context5.next = 7;
+            return db.collection('actions').updateOne({
+              _id: (0, _mongodb.ObjectID)(id)
+            }, {
+              $set: updateAction
+            });
+
+          case 7:
+            res.json({
+              message: "Action ".concat(id, " Updated!")
+            });
+
+          case 8:
+          case "end":
+            return _context5.stop();
+        }
+      }
+    }, _callee5);
+  }));
+
+  return function (_x9, _x10) {
+    return _ref5.apply(this, arguments);
+  };
+}());
 var _default = router;
 exports["default"] = _default;

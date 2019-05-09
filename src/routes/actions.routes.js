@@ -43,6 +43,18 @@ router.delete('/:id', async (req, res) => {
     })
 })
 
-// put
+
+router.put('/:id', async (req, res) => {
+    const { id } = req.params;
+    const updateAction = {
+        nickname: req.body.nickname,
+        score: req.body.score
+    }
+    const db = await connect()
+    await db.collection('actions').updateOne({_id: ObjectID(id)}, { $set: updateAction});
+    res.json({
+        message: `Action ${id} Updated!`
+    })
+})
 
 export default router
